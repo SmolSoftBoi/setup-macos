@@ -33,4 +33,7 @@ printf "${RESET}\n"
 # Cask
 ./scripts/cask.sh
 
+# RescueTime
+./scripts/rescuetime.sh
+
 printf "${SUCCESS}macOS setup.${RESET}\n\n"
