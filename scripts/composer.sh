@@ -1,20 +1,26 @@
 #!/usr/bin/env bash
 
-# Colors
-COLOR_GREEN="\033[0;32m"
-COLOR_YELLOW="\033[0;33m"
-COLOR_RESET="\033[0m"
+RESET="\033[0m"
+BRAND="\033[1;34m"
+INFO="\033[33m"
+SUCCESS="\033[32m"
+DANGER="\033[31m"
 
 # Install composer
 if [ ! -f /usr/local/bin/composer ]; then
-    printf "${COLOR_YELLOW}Installing composer...${COLOR_RESET}\n"
+    printf "${INFO}Installing composer...${RESET}\n"
     php -r "copy('https://getcomposer.org/installer', 'composer-setup.php');"
     php composer-setup.php --quiet
     php -r "unlink('composer-setup.php');"
     mv composer.phar /usr/local/bin/composer
-    printf "${COLOR_GREEN}Composer successfully installed.${COLOR_RESET}\n\n"
+
+    if [ ! -f /usr/local/bin/composer ]; then
+        printf "${SUCCESS}Composer successfully installed.${RESET}\n\n"
+    else
+        printf "${DANGER}Composer not installed.${RESET}\n\n"
+    fi
 else
-    printf "${COLOR_YELLOW}Updating composer...${COLOR_RESET}\n"
+    printf "${INFO}Updating composer...${RESET}\n"
     composer self-update -q
-    printf "${COLOR_GREEN}Composer successfully updated.${COLOR_RESET}\n\n"
+    printf "${SUCCESS}Composer successfully updated.${RESET}\n\n"
 fi

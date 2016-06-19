@@ -1,23 +1,36 @@
 #!/usr/bin/env bash
 
-# Colors
-COLOR_RESET="\033[0m"
-COLOR_BLUE="\033[0;34m"
-COLOR_GREEN="\033[0;32m"
-COLOR_YELLOW="\033[0;33m"
+RESET="\033[0m"
+BRAND="\033[1;34m"
+INFO="\033[33m"
+SUCCESS="\033[32m"
+DANGER="\033[31m"
 
 # Welcome message
-printf "\n${COLOR_BLUE}Setup macOS${COLOR_RESET}\n\n"
+printf "\n${BRAND}Setup macOS${RESET}\n\n"
 
-printf "${COLOR_YELLOW}Setting up macOS...${COLOR_RESET}\n\n"
+printf "${INFO}Setting up macOS${BLINK}...${RESET}\n\n"
+
+printf "${INFO}"
+sudo -v
+printf "${RESET}\n"
 
 # Xcode
-#./scripts/xcode.sh
-
-# Composer
-./scripts/composer.sh
+./scripts/xcode.sh
 
 # SSH
 ./scripts/ssh.sh
 
-printf "${COLOR_GREEN}macOS setup.${COLOR_RESET}\n\n"
+# Composer
+./scripts/composer.sh
+
+# Homebrew
+./scripts/homebrew.sh
+
+# Node.js
+./scripts/nodejs.sh
+
+# Cask
+./scripts/cask.sh
+
+printf "${SUCCESS}macOS setup.${RESET}\n\n"
