@@ -7,11 +7,11 @@ SUCCESS="\033[32m"
 DANGER="\033[31m"
 
 # Install RescueTime
-if [ ! /usr/local/Caskroom/composer ]; then
+if [ ! -d /usr/local/Caskroom/rescuetime ]; then
     printf "${INFO}Installing RescueTime...${RESET}\n"
     brew cask install rescuetime 2</dev/null >/dev/null
 
-    if [ /usr/local/Caskroom/composer ]; then
+    if [ -d /usr/local/Caskroom/rescuetime ]; then
         printf "${SUCCESS}RescueTime successfully installed.${RESET}\n\n"
     else
         printf "${DANGER}RescueTime not installed.${RESET}\n\n"

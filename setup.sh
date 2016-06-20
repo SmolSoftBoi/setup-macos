@@ -33,7 +33,22 @@ printf "${RESET}\n"
 # Cask
 ./scripts/cask.sh
 
+# Adobe
+./scripts/adobe.sh
+
+# CrashPlan
+./scripts/crashplan.sh
+
+# Dropbox
+./scripts/dropbox.sh
+
+# JetBrains
+./scripts/jetbrains.sh
+
 # RescueTime
 ./scripts/rescuetime.sh
+
+# VirtualBox
+./scripts/virtualbox.sh
 
 printf "${SUCCESS}macOS setup.${RESET}\n\n"

@@ -10,6 +10,7 @@ DANGER="\033[31m"
 if [ ! -f /usr/local/bin/brew ]; then
     printf "${INFO}Installing Homebrew...${RESET}\n"
     yes '' | /usr/bin/ruby -e "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/master/install)" \ 2</dev/null >/dev/null
+    brew install mas 2</dev/null >/dev/null
     brew install wget 2</dev/null >/dev/null
     brew tap Homebrew/bundle 2</dev/null >/dev/null
 
@@ -21,5 +22,7 @@ if [ ! -f /usr/local/bin/brew ]; then
 else
     printf "${INFO}Updating Homebrew...${RESET}\n"
     brew update 2</dev/null >/dev/null
+    brew upgrade mas 2</dev/null >/dev/null
+    brew upgrade wget 2</dev/null >/dev/null
     printf "${SUCCESS}Homebrew successfully updated.${RESET}\n\n"
 fi
