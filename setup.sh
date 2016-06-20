@@ -9,7 +9,7 @@ DANGER="\033[31m"
 # Welcome message
 printf "\n${BRAND}Setup macOS${RESET}\n\n"
 
-printf "${INFO}Setting up macOS${BLINK}...${RESET}\n\n"
+printf "${INFO}Setting up macOS...${RESET}\n\n"
 
 printf "${INFO}"
 sudo -v
@@ -41,6 +41,9 @@ printf "${RESET}\n"
 
 # Dropbox
 ./scripts/dropbox.sh
+
+# Google Chrome
+#./scripts/googlechrome.sh
 
 # JetBrains
 ./scripts/jetbrains.sh
