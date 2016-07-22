@@ -30,6 +30,9 @@ printf "${RESET}\n"
 # Node.js
 ./scripts/nodejs.sh
 
+# Bower
+./scripts/bower.sh
+
 # Cask
 ./scripts/cask.sh
 
