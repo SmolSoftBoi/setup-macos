@@ -26,3 +26,6 @@ else
     brew upgrade wget 2</dev/null >/dev/null
     printf "${SUCCESS}Homebrew successfully updated.${RESET}\n\n"
 fi
+
+# Cask
+./scripts/homebrew-packages/cask.sh

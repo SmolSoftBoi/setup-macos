@@ -18,6 +18,9 @@ printf "${RESET}\n"
 # Xcode
 ./scripts/xcode.sh
 
+# Git config
+./scripts/git-config.sh
+
 # SSH
 ./scripts/ssh.sh
 
@@ -30,49 +33,7 @@ printf "${RESET}\n"
 # Node.js
 ./scripts/nodejs.sh
 
-# Bower
-./scripts/bower.sh
-
-# Cask
-./scripts/cask.sh
-
-# Adobe
-./scripts/adobe.sh
-
-# CleanMyMac
-./scripts/cleanmymac.sh
-
-# CrashPlan
-./scripts/crashplan.sh
-
-# Discord
-./scripts/discord.sh
-
-# Dropbox
-./scripts/dropbox.sh
-
-# Dymo
-./scripts/dymo.sh
-
-# Google Chrome
-#./scripts/googlechrome.sh
-
-# JetBrains
-./scripts/jetbrains.sh
-
-# MAMP
-./scripts/mamp.sh
-
-# Panic
-./scripts/panic.sh
-
-# RescueTime
-./scripts/rescuetime.sh
-
-# Skype
-./scripts/skype.sh
-
-# VirtualBox
-./scripts/virtualbox.sh
+# pip
+./scripts/pip.sh
 
 printf "${SUCCESS}macOS setup.${RESET}\n\n"

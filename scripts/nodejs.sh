@@ -21,3 +21,6 @@ else
     brew upgrade node 2</dev/null >/dev/null
     printf "${SUCCESS}Node.js successfully upgraded.${RESET}\n\n"
 fi
+
+# Bower
+./scripts/npm-packages/bower.sh

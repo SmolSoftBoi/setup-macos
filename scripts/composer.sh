@@ -12,7 +12,8 @@ if [ ! -f /usr/local/bin/composer ]; then
     php -r "copy('https://getcomposer.org/installer', 'composer-setup.php');"
     php composer-setup.php --quiet
     php -r "unlink('composer-setup.php');"
-    mv composer.phar /usr/local/bin/composer
+    mv ./composer.phar /usr/local/bin/composer -n
+    rm ./composer-setup.php -d -f
 
     if [ ! -f /usr/local/bin/composer ]; then
         printf "${SUCCESS}Composer successfully installed.${RESET}\n\n"
@@ -24,3 +25,6 @@ else
     composer self-update -q
     printf "${SUCCESS}Composer successfully updated.${RESET}\n\n"
 fi
+
+# PHP Mess Detector
+./scripts/composer-packages/phpmd.sh

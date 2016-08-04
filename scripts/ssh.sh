@@ -16,7 +16,7 @@ if [ ! -f ~/.ssh/id_rsa ]; then
     ssh-add ~/.ssh/id_rsa 2</dev/null >/dev/null
 
     if [ -f ~/.ssh/id_rsa ]; then
-        printf "${SUCCESS}SSH key setup.${RESET}\n"
+        printf "${SUCCESS}SSH key successfully setup.${RESET}\n"
     else
         printf "${DANGER}SSH key not setup.${RESET}\n"
     fi
