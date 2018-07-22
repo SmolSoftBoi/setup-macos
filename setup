@@ -358,10 +358,20 @@ if ! brew list -1 | grep -q "^node\$"
 		done
 fi
 
-chapter "Restoring"
+chapter "Linking"
 
 step "Atom Preferences"
-run mkdir -pv ~/.atom
-run cp -sfv "$directory/.atom/config.cson" ~/.atom
+run mkdir -p ~/Library/Mobile\ Documents/com~apple~CloudDocs/Configs/Atom
+run ln -sf ~/Library/Mobile\ Documents/com~apple~CloudDocs/Configs/Atom/config.cson ~/.atom
+run ln -sf ~/Library/Mobile\ Documents/com~apple~CloudDocs/Configs/Atom/keymap.cson ~/.atom
+run ln -sf ~/Library/Mobile\ Documents/com~apple~CloudDocs/Configs/Atom/snippets.cson ~/.atom
+run ln -sf ~/Library/Mobile\ Documents/com~apple~CloudDocs/Configs/Atom/styles.cson ~/.atom
 
-echo -e "${SUCCESS}macOS Setup${RESET}"
+# Exit Message Screen
+echo ""
+header "                                                                              "
+header "                                 macOS Setup                                  "
+header "                                                                              "
+header "                          We have pimped your  Mac!                          "
+header "                                                                              "
+echo ""
