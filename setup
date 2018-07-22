@@ -5,6 +5,7 @@
 # Colors
 RESET="\033[0m"
 BOLD="\033[1m"
+DIM="\033[2m"
 BRAND="${BOLD}\033[94m"
 SUCCESS="\033[92m"
 INFO="\033[94m"
@@ -23,6 +24,13 @@ while true
 done 2>/dev/null &
 
 count=1
+
+# Run
+run() {
+    echo -e "${DIM}▹ $@ ${RESET}"
+    eval $@
+    echo ""
+}
 
 # Header
 header() {
