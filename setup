@@ -113,6 +113,7 @@ case $(read choice; echo $choice) in
 	[yY] )
 		run defaults write com.apple.SoftwareUpdate ScheduleFrequency -int 1
 		;;
+esac
 
 step "Download newly available updates in the background? [Y/N]:" ""
 case $(read choice; echo $choice) in
