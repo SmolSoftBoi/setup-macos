@@ -125,7 +125,7 @@ esac
 step "Install system data files & security updates? [Y/N]:" ""
 case $(read choice; echo $choice) in
 	[yY] )
-        run write com.apple.SoftwareUpdate CriticalUpdateInstall -int 1
+        run defaults write com.apple.SoftwareUpdate CriticalUpdateInstall -int 1
         ;;
 esac
 
@@ -202,7 +202,7 @@ if [[ "${check}" != "${message}" ]]
 			read choice
 		done
 fi
-run xcodebuild -licensexc
+run xcodebuild -license
 
 chapter "Setup Git"
 
