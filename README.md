@@ -5,7 +5,7 @@ Install apps and configure Mac.
 Run the command below in your terminal and the installation will start automatically.
 Just follow the prompts and you’ll be fine. 👌
 ``` bash
-git clone https://github.com/EpicKris/setup-macos.git ~/.setup-macos && ~/setup-macos/setup
+git clone https://github.com/EpicKris/setup-macos.git ~/.setup-macos && ~/.setup-macos/setup
 ```
 
 ## What Will You Get?
