@@ -78,9 +78,9 @@ step "Setting your computer name."
 echo -ne "  What would you like it to be? ${BOLD}"
 read computer_name
 echo -ne "${RESET}"
-run sudo scutil --set ComputerName "'${computer_name}''"
-run sudo scutil --set HostName "'${computer_name}''"
-run sudo defaults write /Library/Preferences/SystemConfiguration/com.apple.smb.server NetBIOSName -string "'${computer_name}''"
+run sudo scutil --set ComputerName "'${computer_name}'"
+run sudo scutil --set HostName "'${computer_name}'"
+run sudo defaults write /Library/Preferences/SystemConfiguration/com.apple.smb.server NetBIOSName -string "'${computer_name}'"
 
 chapter "Mouse & Trackpad Settings"
 
