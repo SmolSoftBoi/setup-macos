@@ -1,1 +1,14 @@
+fig/cache-util
+fig/http-message-util
+fig/link-util
 phpmd/phpmd
+psr/cache
+psr/container
+psr/http-client
+psr/http-message
+psr/http-server-handler
+psr/http-server-middleware
+psr/link
+psr/log
+psr/simple-cache
+squizlabs/php_codesniffer

@@ -1,0 +1,341 @@
+#!/usr/bin/env bash
+
+# Thanks to https://github.com/mzdr
+
+# Colors
+RESET="\033[0m"
+BOLD="\033[1m"
+BRAND="${BOLD}\033[94m"
+SUCCESS="\033[92m"
+INFO="\033[94m"
+WARNING="\033[93m"
+DANGER="\033[91m"
+
+# Directory
+directory="$(cd "$(dirname "$0")" && pwd)"
+
+# Keep-Alive for Sudo
+while true
+	do
+		sudo -n true
+		sleep 60
+		kill -0 "$$" || exit
+done 2>/dev/null &
+
+count=1
+
+# Header
+header() {
+	echo -e "\n${BRAND} $@ ${RESET}\n"
+}
+
+# Chapter
+chapter() {
+    echo -e "\n${BRAND} $((count++)). $@ ${RESET}\n"
+}
+
+# Step
+step() {
+    if [ $# -eq 1 ]
+	    then
+	        echo -e "${INFO} $@ ${RESET}"
+	    else
+	        echo -ne "${INFO} $@ ${RESET}"
+    fi
+}
+
+# Welcome Message Screen
+echo ""
+header "                                                                              "
+header "                                 Setup macOS                                  "
+header "                                                                              "
+header "                       We are about to pimp your  Mac!                       "
+header "                   Follow the prompts and you’ll be fine. 👌                  "
+header "                                                                              "
+echo ""
+
+# Quit System Prefences
+# Prevents overriding preferences.
+osascript -e 'tell application "System Preferences" to quit'
+
+# Ask for Sudo Password
+if [ $(sudo -n uptime 2>&1|grep "load" | wc -l) -eq 0 ]
+	then
+		step "Some of these settings are system-wide, therefore we need your permission."
+		sudo -v
+fi
+
+chapter "System Settings"
+
+step "Setting your computer name."
+echo -ne "  What would you like it to be? ${BOLD}"
+read computer_name
+echo -ne "${RESET}"
+run sudo scutil --set ComputerName "${computer_name}"
+run sudo scutil --set HostName "${computer_name}"
+run sudo defaults write /Library/Preferences/SystemConfiguration/com.apple.smb.server NetBIOSName -string "${computer_name}"
+
+chapter "Mouse & Trackpad Settings"
+
+step "Enable tap to click for this user and the login screen? [Y/N]:" ""
+case $(read choice; echo $choice) in
+	[yY] )
+		run defaults write com.apple.driver.AppleBluetoothMultitouch.trackpad Clicking -bool true
+		run defaults -currentHost write NSGlobalDomain com.apple.mouse.tapBehavior -int 1
+		run defaults write NSGlobalDomain com.apple.mouse.tapBehavior -int 1
+		;;
+esac
+
+chapter "Software Update Settings"
+
+step "Enable the automatic update check? [Y/N]:" ""
+case $(read choice; echo $choice) in
+	[yY] )
+        run defaults write com.apple.SoftwareUpdate AutomaticCheckEnabled -bool true
+        ;;
+esac
+
+step "Check for software updates daily, not just once per week? [Y/N]:" ""
+case $(read choice; echo $choice) in
+	[yY] )
+		run defaults write com.apple.SoftwareUpdate ScheduleFrequency -int 1
+		;;
+
+step "Download newly available updates in the background? [Y/N]:" ""
+case $(read choice; echo $choice) in
+	[yY] )
+        run defaults write com.apple.SoftwareUpdate AutomaticDownload -int 1
+        ;;
+esac
+
+step "Install system data files & security updates? [Y/N]:" ""
+case $(read choice; echo $choice) in
+	[yY] )
+        run write com.apple.SoftwareUpdate CriticalUpdateInstall -int 1
+        ;;
+esac
+
+step "Turn on app auto update? [Y/N]:" ""
+case $(read choice; echo $choice) in
+	[yY] )
+        run defaults write com.apple.commerce AutoUpdate -bool true
+        ;;
+esac
+
+chapter "Accessibility Settings"
+
+step "Use scroll gesture with ^ Control modifier key to zoom? [Y/N]:" ""
+case $(read choice; echo $choice) in
+	[yY] )
+		run defaults write com.apple.universalaccess closeViewScrollWheelToggle -bool true
+		run defaults write com.apple.universalaccess HIDScrollZoomModifierMask -int 262144
+		;;
+esac
+
+chapter "Finder Settings"
+
+step "Keep folders on top when sorting by name? [Y/N]:" ""
+case $(read choice; echo $choice) in
+	[yY] )
+		run defaults write com.apple.finder _FXSortFoldersFirst -bool true
+		;;
+esac
+
+step "Enable AirDrop over ethernet? [Y/M]:" ""
+case $(read choice; echo $choice) in
+	[yY] )
+        run defaults write com.apple.NetworkBrowser BrowseAllInterfaces -bool true
+        ;;
+esac
+
+step "Show the ~/Library folder? [Y/N]:" ""
+case $(read choice; echo $choice) in
+	[yY] )
+        run chflags nohidden ~/Library
+        ;;
+esac
+
+step "Show the /Volumes folder? [Y/N]:" ""
+case $(read choice; echo $choice) in
+	[yY] )
+        run sudo chflags nohidden /Volumes
+        ;;
+esac
+
+chapter "Setup Xcode"
+
+check=$(xcode-select --install 2>&1)
+message="xcode-select: note: install requested for command line developer tools"
+if [[ "${check}" != "${message}" ]]
+	then
+		choice="N"
+		test="N"
+		while [[ "${choice}" == "${test}" ]]
+			do xcode-select --install
+			step "Xcode Installed? [Y/N]" ""
+			read choice
+		done
+fi
+run xcodebuild -licensexc
+
+chapter "Setup Git"
+
+if [ ! -f ~/.gitignore ]
+	then
+		step "Setting Git ignore."
+		run wget ~/.gitignore "https://www.gitignore.io/api/macos,composer,jetbrains"
+		run git config --global core.excludesfile ~/.gitignore
+fi
+
+if [ ! -f ~/.gitconfig ]
+	then
+		step "Setting your name."
+		echo -ne "  What is it? ${BOLD}"
+		read name
+		echo -ne "${RESET}"
+		step "Setting your email."
+		echo -ne "  What is it? ${BOLD}"
+		read email
+		echo -ne "${RESET}"
+		run git config --global user.name "${name}"
+		run git config --global user.email "${email}"
+fi
+
+chapter "Setup SSH"
+
+if [ ! -f ~/.ssh/id_rsa ]
+	then
+		step "Setting your email."
+		echo -ne "  What is it? ${BOLD}"
+		read email
+		echo -ne "${RESET}"
+		run ssh-keygen -q -t rsa -b 4096 -f ~/.ssh/id_rsa -N "" -C "${email}"
+		run ssh-add ~/.ssh/id_rsa
+fi
+
+step "Copy SSH key to clipboard? [Y/N]" ""
+case $(read choice; echo $choice) in
+	[yY] )
+        run pbcopy < ~/.ssh/id_rsa.pub
+        ;;
+esac
+
+chapter "Software Update"
+
+step "Update software? [Y/N]:" ""
+case $(read choice; echo $choice) in
+	[yY] )
+        run sudo softwareupdate -ia
+		run sudo softwareupdate --schedule on
+        ;;
+esac
+
+chapter "Install Apps & Packages"
+
+step "Homebrew"
+which -s brew
+if [[ $? != 0 ]]
+	then
+		run /usr/bin/ruby -e "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/master/install)"
+	else
+		run brew update
+fi
+
+step "CLI Apps"
+for app in $(<"$directory/apps/cli")
+	do
+		if ! brew list -1 | grep -q "^${app}\$"
+			then
+				run brew install ${app}
+			else
+				run brew upgrade ${app}
+		fi
+done
+
+if ! brew list -1 | grep -q "^mas\$"
+	then
+		step "App Store Apps"
+		echo -ne "  What is your Apple ID? ${BOLD}"
+		read apple_id
+		echo -ne "${RESET}"
+		echo -ne "  What is your Apple ID password? ${BOLD}"
+		read apple_id_pass
+		echo -ne "${RESET}"
+		run mas signin ${apple_id} ${apple_id_pass}
+		for app in $(<"$directory/apps/app-store")
+			do
+				if ! mas list -1 | grep -q "^${app}\$"
+					then
+						run mas install ${app}
+					else
+						run mas upgrade ${app}
+				fi
+		done
+fi
+
+step "Cask Apps"
+for app in $(<"$directory/apps/cask")
+	do
+		if ! brew cask list -1 | grep -q "^${app}\$"
+			then
+				run brew cask install ${app}
+			else
+				run brew cask upgrade ${app}
+		fi
+done
+
+if ! brew cask list -1 | grep -q "^adobe-creative-cloud\$"
+	then
+		step "Adobe Creative Cloud"
+		run /usr/local/Caskroom/adobe-creative-cloud/latest/Creative\ Cloud\ Installer.app/Contents/MacOS/Install
+fi
+
+if ! brew cask list -1 | grep -q "^atom\$"
+	then
+		step "Atom"
+		for package in $(<"$directory/packages/atom")
+			do
+				if [ ! -d ~/.atom/packages/${package} ]
+					then
+						run apm install $package
+					else
+						run apm update $package
+				fi
+		done
+fi
+
+if ! brew list -1 | grep -q "^composer\$"
+	then
+		step "Composer Packages"
+		for package in $(<"$directory/packages/composer")
+			do
+				if [ ! -d ~/.composer/vendor/${package} ]
+					then
+						run composer global require ${package} --quiet
+					else
+						run composer global update --quiet
+				fi
+		done
+fi
+
+if ! brew list -1 | grep -q "^node\$"
+	then
+		step "NPM Packages"
+		for package in $(<"$directory/packages/npm")
+			do
+				if [ ! -f /usr/local/bin/${package} ]
+					then
+						run npm install -g ${package}
+					else
+						run npm update -g ${package}
+				fi
+		done
+fi
+
+chapter "Restoring"
+
+step "Atom Preferences"
+run mkdir -pv ~/.atom
+run cp -sfv "$directory/.atom/config.cson" ~/.atom
+
+echo -e "${SUCCESS}macOS Setup${RESET}"

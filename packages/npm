@@ -1,1 +1,7 @@
-bower
+bootlint
+csslint
+eslint
+parcel-bundler
+tidy
+webpack
+webpack-cli

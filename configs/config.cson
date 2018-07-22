@@ -1,0 +1,122 @@
+"*":
+  autocomplete:
+    includeCompletionsFromAllBuffers: true
+  "autocomplete-plus":
+    enableExtendedUnicodeSupport: true
+  autosave:
+    enabled: true
+  "bracket-matcher":
+    highlightMatchingLineNumber: true
+  "command-palette": {}
+  core:
+    closeDeletedFileTabs: true
+    projectHome: "~/Sites"
+    telemetryConsent: "limited"
+    themes: [
+      "one-light-ui"
+      "one-light-syntax"
+    ]
+    uriHandlerRegistration: "always"
+  docblockr:
+    auto_add_method_tag: true
+    short_primitives: true
+    spacer_between_sections: "after_description"
+  editor:
+    scrollPastEnd: true
+    showIndentGuide: true
+    softWrap: true
+    tabLength: 4
+  "exception-reporting":
+    userId: "a1cdcf39-aca1-431a-9ad0-4c528c64e672"
+  "file-icons": {}
+  "find-and-replace":
+    autocompleteSearches: true
+    focusEditorAfterSearch: true
+    scrollToResultOnLiveSearch: true
+  "fuzzy-finder":
+    prefillFromSelection: true
+  "git-blame":
+    colorCommitAuthors: true
+    ignoreWhiteSpaceDiffs: true
+  "git-diff":
+    showIconsInEditorGutter: true
+  "git-plus":
+    experimental: {}
+    tags: {}
+  "linter-coffeelint":
+    disableIfNoConfig: true
+  "linter-csslint": {}
+  "linter-eslint":
+    fixOnSave: true
+    lintHtmlFiles: true
+    useGlobalEslint: true
+  "linter-jscs":
+    fixOnSave: true
+    onlyConfig: true
+  "linter-jshint":
+    disableWhenNoJshintrcFileInPath: true
+    lintInlineJavaScript: true
+  "linter-markdown":
+    presetStyleGuideWithoutConfig: true
+  "linter-phpcs": {}
+  "linter-phpmd":
+    disableWhenNoConfigFile: true
+    strictMode: true
+  "linter-pylama":
+    configFileLoad: "Use pylama config"
+    useIsort: true
+  "linter-sass-lint":
+    globalSassLint: true
+  "linter-scss-lint":
+    disableWhenNoConfigFileInPath: true
+  "linter-stylelint":
+    disableWhenNoConfig: false
+    useStandard: true
+  "linter-tslint":
+    fixOnSave: true
+    useGlobalTslint: true
+  "markdown-preview": {}
+  pigments:
+    autocompleteSuggestionsFromValue: true
+    extendAutocompleteToColorValue: true
+    extendAutocompleteToVariables: true
+    groupPaletteColors: "by file"
+    mergeColorDuplicates: true
+    sortPaletteColors: "by color"
+    traverseIntoSymlinkDirectories: true
+  "pretty-json":
+    grammars: [
+      "source.json"
+    ]
+    prettifyOnSaveJSON: true
+  "spell-check":
+    addKnownWords: true
+  "svg-preview":
+    openPreviewAutomatically: true
+  tablr:
+    copyPaste: {}
+    csvEditor:
+      header: true
+      skipEmptyLines: true
+    tableEditor:
+      scrollPastEnd: true
+  tabs:
+    addNewTabsAtEnd: true
+    enableVcsColoring: true
+  "todo-show":
+    sortBy: "All"
+    statusBarIndicator: true
+  "tree-view":
+    alwaysOpenExisting: true
+    autoReveal: true
+  wakatime:
+    apikey: "Saved in your ~/.wakatime.cfg file"
+".coffee.source":
+  editor:
+    autoIndentOnPaste: true
+".makefile.source":
+  editor:
+    tabType: "auto"
+".sass.source":
+  editor:
+    autoIndentOnPaste: true
