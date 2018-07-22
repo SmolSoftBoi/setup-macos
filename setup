@@ -27,7 +27,7 @@ count=1
 
 # Run
 run() {
-    echo -e "  ${DIM}▹ $@ ${RESET}"
+    echo -e "   ${DIM}▹ $@ ${RESET}"
     eval $@
 }
 
@@ -78,9 +78,9 @@ step "Setting your computer name."
 echo -ne "  What would you like it to be? ${BOLD}"
 read computer_name
 echo -ne "${RESET}"
-run sudo scutil --set ComputerName "'${computer_name}'"
-run sudo scutil --set HostName "'${computer_name}'"
-run sudo defaults write /Library/Preferences/SystemConfiguration/com.apple.smb.server NetBIOSName -string "'${computer_name}'"
+run sudo scutil --set ComputerName "\"${computer_name}\""
+run sudo scutil --set HostName "\"${computer_name}\""
+run sudo defaults write /Library/Preferences/SystemConfiguration/com.apple.smb.server NetBIOSName -string "\"${computer_name}\""
 
 chapter "Mouse & Trackpad Settings"
 
@@ -91,6 +91,9 @@ case $(read choice; echo $choice) in
 		run defaults -currentHost write NSGlobalDomain com.apple.mouse.tapBehavior -int 1
 		run defaults write NSGlobalDomain com.apple.mouse.tapBehavior -int 1
 		;;
+	[nN] )
+		run defaults write com.apple.driver.AppleBluetoothMultitouch.trackpad Clicking -bool false
+		;;
 esac
 
 chapter "Software Update Settings"
@@ -100,6 +103,9 @@ case $(read choice; echo $choice) in
 	[yY] )
         run defaults write com.apple.SoftwareUpdate AutomaticCheckEnabled -bool true
         ;;
+	[nN] )
+		run defaults write com.apple.SoftwareUpdate AutomaticCheckEnabled -bool false
+		;;
 esac
 
 step "Check for software updates daily, not just once per week? [Y/N]:" ""
@@ -127,6 +133,9 @@ case $(read choice; echo $choice) in
 	[yY] )
         run defaults write com.apple.commerce AutoUpdate -bool true
         ;;
+	[nN] )
+		run defaults write com.apple.commerce AutoUpdate -bool false
+		;;
 esac
 
 chapter "Accessibility Settings"
@@ -137,6 +146,9 @@ case $(read choice; echo $choice) in
 		run defaults write com.apple.universalaccess closeViewScrollWheelToggle -bool true
 		run defaults write com.apple.universalaccess HIDScrollZoomModifierMask -int 262144
 		;;
+	[nN] )
+		run defaults write com.apple.universalaccess closeViewScrollWheelToggle -bool false
+		;;
 esac
 
 chapter "Finder Settings"
@@ -146,12 +158,18 @@ case $(read choice; echo $choice) in
 	[yY] )
 		run defaults write com.apple.finder _FXSortFoldersFirst -bool true
 		;;
+	[nN] )
+		run defaults write com.apple.finder _FXSortFoldersFirst -bool false
+		;;
 esac
 
 step "Enable AirDrop over ethernet? [Y/M]:" ""
 case $(read choice; echo $choice) in
 	[yY] )
         run defaults write com.apple.NetworkBrowser BrowseAllInterfaces -bool true
+        ;;
+	[nN] )
+        run defaults write com.apple.NetworkBrowser BrowseAllInterfaces -bool false
         ;;
 esac
 
