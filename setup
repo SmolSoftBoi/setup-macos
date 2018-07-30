@@ -235,8 +235,8 @@ if [ ! -f ~/.ssh/id_rsa ]
 		echo -ne "  What is it? ${BOLD}"
 		read email
 		echo -ne "${RESET}"
-		run ssh-keygen -q -t rsa -b 4096 -f ~/.ssh/id_rsa -N "" -C "${email}"
-		run ssh-add ~/.ssh/id_rsa
+		run ssh-keygen -t rsa -b 4096 -f ~/.ssh/id_rsa -N "" -C "${email}"
+		run ssh-add -K ~/.ssh/id_rsa
 fi
 
 step "Copy SSH key to clipboard? [Y/N]" ""
@@ -262,7 +262,7 @@ step "Homebrew"
 which -s brew
 if [[ $? != 0 ]]
 	then
-		run /usr/bin/ruby -e "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/master/install)"
+		run '/usr/bin/ruby -e "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/master/install)"'
 	else
 		run brew update
 fi
@@ -278,7 +278,7 @@ for app in $(<"$directory/apps/cli")
 		fi
 done
 
-if ! brew list -1 | grep -q "^mas\$"
+if brew list -1 | grep -q "^mas\$"
 	then
 		step "App Store Apps"
 		echo -ne "  What is your Apple ID? ${BOLD}"
@@ -316,7 +316,7 @@ if ! brew cask list -1 | grep -q "^adobe-creative-cloud\$"
 		run /usr/local/Caskroom/adobe-creative-cloud/latest/Creative\ Cloud\ Installer.app/Contents/MacOS/Install
 fi
 
-if ! brew cask list -1 | grep -q "^atom\$"
+if brew cask list -1 | grep -q "^atom\$"
 	then
 		step "Atom"
 		for package in $(<"$directory/packages/atom")
@@ -330,7 +330,7 @@ if ! brew cask list -1 | grep -q "^atom\$"
 		done
 fi
 
-if ! brew list -1 | grep -q "^composer\$"
+if brew list -1 | grep -q "^composer\$"
 	then
 		step "Composer Packages"
 		for package in $(<"$directory/packages/composer")
@@ -344,7 +344,7 @@ if ! brew list -1 | grep -q "^composer\$"
 		done
 fi
 
-if ! brew list -1 | grep -q "^node\$"
+if brew list -1 | grep -q "^node\$"
 	then
 		step "NPM Packages"
 		for package in $(<"$directory/packages/npm")
