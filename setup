@@ -239,12 +239,15 @@ if [ ! -f ~/.ssh/id_rsa ]
 		run ssh-add -K ~/.ssh/id_rsa
 fi
 
-step "Copy SSH key to clipboard? [Y/N]" ""
-case $(read choice; echo $choice) in
-	[yY] )
-        run pbcopy < ~/.ssh/id_rsa.pub
-        ;;
-esac
+if [ ! -f ~/.ssh/id_rsa ]
+	then
+		step "Copy SSH key to clipboard? [Y/N]" ""
+		case $(read choice; echo $choice) in
+			[yY] )
+		        run pbcopy < ~/.ssh/id_rsa.pub
+		        ;;
+		esac
+fi
 
 chapter "Software Update"
 
