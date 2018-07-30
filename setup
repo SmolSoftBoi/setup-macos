@@ -164,7 +164,7 @@ case $(read choice; echo $choice) in
 		;;
 esac
 
-step "Enable AirDrop over ethernet? [Y/M]:" ""
+step "Enable AirDrop over ethernet? [Y/N]:" ""
 case $(read choice; echo $choice) in
 	[yY] )
         run defaults write com.apple.NetworkBrowser BrowseAllInterfaces -bool true
