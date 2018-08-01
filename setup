@@ -270,6 +270,21 @@ if [[ $? != 0 ]]
 		run brew update
 fi
 
+if ! brew list -1 | grep -q "^mas\$"
+	then
+		run brew install mas
+	else
+		run brew upgrade mas
+fi
+
+echo -ne "  What is your Apple ID? ${BOLD}"
+read apple_id
+echo -ne "${RESET}"
+echo -ne "  What is your Apple ID password? ${BOLD}"
+read apple_id_pass
+echo -ne "${RESET}"
+run mas signin ${apple_id} "${apple_id_pass}"
+
 step "CLI Apps"
 for app in $(<"$directory/apps/cli")
 	do
@@ -281,26 +296,16 @@ for app in $(<"$directory/apps/cli")
 		fi
 done
 
-if brew list -1 | grep -q "^mas\$"
-	then
-		step "App Store Apps"
-		echo -ne "  What is your Apple ID? ${BOLD}"
-		read apple_id
-		echo -ne "${RESET}"
-		echo -ne "  What is your Apple ID password? ${BOLD}"
-		read apple_id_pass
-		echo -ne "${RESET}"
-		run mas signin ${apple_id} ${apple_id_pass}
-		for app in $(<"$directory/apps/app-store")
-			do
-				if ! mas list -1 | grep -q "^${app}\$"
-					then
-						run mas install ${app}
-					else
-						run mas upgrade ${app}
-				fi
-		done
-fi
+step "App Store Apps"
+for app in $(<"$directory/apps/app-store")
+	do
+		if ! mas list -1 | grep -q "^${app}\$"
+			then
+				run mas install ${app}
+			else
+				run mas upgrade ${app}
+		fi
+done
 
 step "Cask Apps"
 for app in $(<"$directory/apps/cask")
@@ -365,6 +370,7 @@ chapter "Linking"
 
 step "Atom Preferences"
 run mkdir -p ~/Library/Mobile\ Documents/com~apple~CloudDocs/Configs/Atom
+run mkdir -p ~/.atom
 run ln -sf ~/Library/Mobile\ Documents/com~apple~CloudDocs/Configs/Atom/config.cson ~/.atom
 run ln -sf ~/Library/Mobile\ Documents/com~apple~CloudDocs/Configs/Atom/keymap.cson ~/.atom
 run ln -sf ~/Library/Mobile\ Documents/com~apple~CloudDocs/Configs/Atom/snippets.cson ~/.atom
