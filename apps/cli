@@ -1,12 +1,7 @@
-composer
 git
-mysql
 nginx
 node
 php
-python
-shellcheck
-sourcekitten
+shadowenv
 swift
-vapor/tap/vapor
 yarn
