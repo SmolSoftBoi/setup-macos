@@ -338,6 +338,14 @@ if brew list -1 | grep -q "^node\$"
 		done
 fi
 
+chapter "Restoring Backup"
+
+step "Mackup Preferences"
+run mkdir -p ~/Library/Mobile\ Documents/com~apple~CloudDocs/Configs/Atom
+run mkdir -p ~/.atom
+run cp -f $directory/configs/mackup.cfg ~/.mackup.cfg
+run mackup -f restore
+
 # Exit Message Screen
 echo ""
 header "                                                                              "
