@@ -324,34 +324,6 @@ if ! brew cask list -1 | grep -q "^adobe-creative-cloud\$"
 		run /usr/local/Caskroom/adobe-creative-cloud/latest/Creative\ Cloud\ Installer.app/Contents/MacOS/Install
 fi
 
-if brew cask list -1 | grep -q "^atom\$"
-	then
-		step "Atom"
-		for package in $(<"$directory/packages/atom")
-			do
-				if [ ! -d ~/.atom/packages/${package} ]
-					then
-						run apm install $package
-					else
-						run apm update $package
-				fi
-		done
-fi
-
-if brew list -1 | grep -q "^composer\$"
-	then
-		step "Composer Packages"
-		for package in $(<"$directory/packages/composer")
-			do
-				if [ ! -d ~/.composer/vendor/${package} ]
-					then
-						run composer global require ${package} --quiet
-					else
-						run composer global update --quiet
-				fi
-		done
-fi
-
 if brew list -1 | grep -q "^node\$"
 	then
 		step "NPM Packages"
@@ -365,16 +337,6 @@ if brew list -1 | grep -q "^node\$"
 				fi
 		done
 fi
-
-chapter "Linking"
-
-step "Atom Preferences"
-run mkdir -p ~/Library/Mobile\ Documents/com~apple~CloudDocs/Configs/Atom
-run mkdir -p ~/.atom
-run ln -sf ~/Library/Mobile\ Documents/com~apple~CloudDocs/Configs/Atom/config.cson ~/.atom
-run ln -sf ~/Library/Mobile\ Documents/com~apple~CloudDocs/Configs/Atom/keymap.cson ~/.atom
-run ln -sf ~/Library/Mobile\ Documents/com~apple~CloudDocs/Configs/Atom/snippets.cson ~/.atom
-run ln -sf ~/Library/Mobile\ Documents/com~apple~CloudDocs/Configs/Atom/styles.cson ~/.atom
 
 # Exit Message Screen
 echo ""
