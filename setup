@@ -139,19 +139,6 @@ case $(read choice; echo $choice) in
 		;;
 esac
 
-chapter "Accessibility Settings"
-
-step "Use scroll gesture with ^ Control modifier key to zoom? [Y/N]:" ""
-case $(read choice; echo $choice) in
-	[yY] )
-		run defaults write com.apple.universalaccess closeViewScrollWheelToggle -bool true
-		run defaults write com.apple.universalaccess HIDScrollZoomModifierMask -int 262144
-		;;
-	[nN] )
-		run defaults write com.apple.universalaccess closeViewScrollWheelToggle -bool false
-		;;
-esac
-
 chapter "Finder Settings"
 
 step "Keep folders on top when sorting by name? [Y/N]:" ""
@@ -202,30 +189,7 @@ if [[ "${check}" != "${message}" ]]
 			read choice
 		done
 fi
-run xcodebuild -license
-
-chapter "Setup Git"
-
-if [ ! -f ~/.gitignore ]
-	then
-		step "Setting Git ignore."
-		run wget ~/.gitignore "https://www.gitignore.io/api/macos,composer,jetbrains"
-		run git config --global core.excludesfile ~/.gitignore
-fi
-
-if [ ! -f ~/.gitconfig ]
-	then
-		step "Setting your name."
-		echo -ne "  What is it? ${BOLD}"
-		read name
-		echo -ne "${RESET}"
-		step "Setting your email."
-		echo -ne "  What is it? ${BOLD}"
-		read email
-		echo -ne "${RESET}"
-		run git config --global user.name "${name}"
-		run git config --global user.email "${email}"
-fi
+run sudo xcodebuild -license
 
 chapter "Setup SSH"
 
@@ -235,8 +199,8 @@ if [ ! -f ~/.ssh/id_rsa ]
 		echo -ne "  What is it? ${BOLD}"
 		read email
 		echo -ne "${RESET}"
-		run ssh-keygen -t rsa -b 4096 -f ~/.ssh/id_rsa -N "" -C "${email}"
-		run ssh-add -K ~/.ssh/id_rsa
+		run ssh-keygen -t rsa -b 4096 -f ~/.ssh/id_rsa -C "${email}"
+		run ssh-add --apple-use-keychain ~/.ssh/id_rsa
 fi
 
 if [ ! -f ~/.ssh/id_rsa ]
@@ -277,14 +241,6 @@ if ! brew list -1 | grep -q "^mas\$"
 		run brew upgrade mas
 fi
 
-echo -ne "  What is your Apple ID? ${BOLD}"
-read apple_id
-echo -ne "${RESET}"
-echo -ne "  What is your Apple ID password? ${BOLD}"
-read apple_id_pass
-echo -ne "${RESET}"
-run mas signin ${apple_id} "${apple_id_pass}"
-
 step "CLI Apps"
 for app in $(<"$directory/apps/cli")
 	do
@@ -299,7 +255,7 @@ done
 step "App Store Apps"
 for app in $(<"$directory/apps/app-store")
 	do
-		if ! mas list -1 | grep -q "^${app}\$"
+		if ! mas list | grep -q "^${app}\$"
 			then
 				run mas install ${app}
 			else
@@ -336,6 +292,30 @@ if brew list -1 | grep -q "^node\$"
 						run npm update -g ${package}
 				fi
 		done
+		npm audit fix --force
+fi
+
+chapter "Setup Git"
+
+if [ ! -f ~/.gitignore ]
+	then
+		step "Setting Git ignore."
+		run wget ~/.gitignore "https://www.gitignore.io/api/macos,composer,jetbrains"
+		run git config --global core.excludesfile ~/.gitignore
+fi
+
+if [ ! -f ~/.gitconfig ]
+	then
+		step "Setting your name."
+		echo -ne "  What is it? ${BOLD}"
+		read name
+		echo -ne "${RESET}"
+		step "Setting your email."
+		echo -ne "  What is it? ${BOLD}"
+		read email
+		echo -ne "${RESET}"
+		run git config --global user.name "${name}"
+		run git config --global user.email "${email}"
 fi
 
 chapter "Restoring Backup"
