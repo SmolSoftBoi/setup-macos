@@ -266,15 +266,15 @@ done
 step "Cask Apps"
 for app in $(<"$directory/apps/cask")
 	do
-		if ! brew cask list -1 | grep -q "^${app}\$"
+		if ! brew list --cask -1 | grep -q "^${app}\$"
 			then
-				run brew cask install ${app}
+				run brew install --cask ${app}
 			else
-				run brew cask upgrade ${app}
+				run brew upgrade --cask ${app}
 		fi
 done
 
-if ! brew cask list -1 | grep -q "^adobe-creative-cloud\$"
+if ! brew list --cask -1 | grep -q "^adobe-creative-cloud\$"
 	then
 		step "Adobe Creative Cloud"
 		run /usr/local/Caskroom/adobe-creative-cloud/latest/Creative\ Cloud\ Installer.app/Contents/MacOS/Install
