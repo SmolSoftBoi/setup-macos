@@ -33,4 +33,9 @@ Adjust it to your personal taste.
 [iina]: https://iina.io
 [nginx]: https://nginx.org
 [swift]: https://swift.sorting
-[visual-studio-cdoe]: https://code.visualstudio.com
+[visual-studio-code]: https://code.visualstudio.com
+
+## Development Container
+
+Use [Dev Containers](https://code.visualstudio.com/docs/devcontainers/containers) or GitHub Codespaces to develop.
+Open this project in VS Code and the extension will prompt you to rebuild using the included configuration.
