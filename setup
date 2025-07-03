@@ -26,8 +26,8 @@ count=1
 
 # Run
 run() {
-    echo -e "   ${DIM}▹ $@ ${RESET}"
-    eval $@
+  echo -e "   ${DIM}▹ $@ ${RESET}"
+  eval $@
 }
 
 # Header
@@ -37,15 +37,15 @@ header() {
 
 # Chapter
 chapter() {
-    echo -e "\n${BRAND} $((count++)). $@ ${RESET}\n"
+  echo -e "\n${BRAND} $((count++)). $@ ${RESET}\n"
 }
 
 # Step
 step() {
   if [ $# -eq 1 ]; then
-    echo -e "${INFO} $@ ${RESET}"
+  echo -e "${INFO} $@ ${RESET}"
   else
-    echo -ne "${INFO} $@ ${RESET}"
+  echo -ne "${INFO} $@ ${RESET}"
   fi
 }
 
@@ -88,13 +88,13 @@ case $(
   echo "$choice"
 ) in
   [yY])
-    run defaults write com.apple.driver.AppleBluetoothMultitouch.trackpad Clicking -bool true
-    run defaults -currentHost write NSGlobalDomain com.apple.mouse.tapBehavior -int 1
-    run defaults write NSGlobalDomain com.apple.mouse.tapBehavior -int 1
-    ;;
+  run defaults write com.apple.driver.AppleBluetoothMultitouch.trackpad Clicking -bool true
+  run defaults -currentHost write NSGlobalDomain com.apple.mouse.tapBehavior -int 1
+  run defaults write NSGlobalDomain com.apple.mouse.tapBehavior -int 1
+  ;;
   [nN])
-    run defaults write com.apple.driver.AppleBluetoothMultitouch.trackpad Clicking -bool false
-    ;;
+  run defaults write com.apple.driver.AppleBluetoothMultitouch.trackpad Clicking -bool false
+  ;;
 esac
 
 chapter "Software Update Settings"
@@ -105,11 +105,11 @@ case $(
   echo "$choice"
 ) in
   [yY])
-    run defaults write com.apple.SoftwareUpdate AutomaticCheckEnabled -bool true
-    ;;
+  run defaults write com.apple.SoftwareUpdate AutomaticCheckEnabled -bool true
+  ;;
   [nN])
-    run defaults write com.apple.SoftwareUpdate AutomaticCheckEnabled -bool false
-    ;;
+  run defaults write com.apple.SoftwareUpdate AutomaticCheckEnabled -bool false
+  ;;
 esac
 
 step "Check for software updates daily, not just once per week? [Y/N]:" ""
@@ -118,8 +118,8 @@ case $(
   echo "$choice"
 ) in
   [yY])
-    run defaults write com.apple.SoftwareUpdate ScheduleFrequency -int 1
-    ;;
+  run defaults write com.apple.SoftwareUpdate ScheduleFrequency -int 1
+  ;;
 esac
 
 step "Download newly available updates in the background? [Y/N]:" ""
@@ -128,8 +128,8 @@ case $(
   echo "$choice"
 ) in
   [yY])
-    run defaults write com.apple.SoftwareUpdate AutomaticDownload -int 1
-    ;;
+  run defaults write com.apple.SoftwareUpdate AutomaticDownload -int 1
+  ;;
 esac
 
 step "Install system data files & security updates? [Y/N]:" ""
@@ -138,8 +138,8 @@ case $(
   echo "$choice"
 ) in
   [yY])
-    run defaults write com.apple.SoftwareUpdate CriticalUpdateInstall -int 1
-    ;;
+  run defaults write com.apple.SoftwareUpdate CriticalUpdateInstall -int 1
+  ;;
 esac
 
 step "Turn on app auto update? [Y/N]:" ""
@@ -148,11 +148,11 @@ case $(
   echo "$choice"
 ) in
   [yY])
-    run defaults write com.apple.commerce AutoUpdate -bool true
-    ;;
+  run defaults write com.apple.commerce AutoUpdate -bool true
+  ;;
   [nN])
-    run defaults write com.apple.commerce AutoUpdate -bool false
-    ;;
+  run defaults write com.apple.commerce AutoUpdate -bool false
+  ;;
 esac
 
 chapter "Finder Settings"
@@ -163,11 +163,11 @@ case $(
   echo "$choice"
 ) in
   [yY])
-    run defaults write com.apple.finder _FXSortFoldersFirst -bool true
-    ;;
+  run defaults write com.apple.finder _FXSortFoldersFirst -bool true
+  ;;
   [nN])
-    run defaults write com.apple.finder _FXSortFoldersFirst -bool false
-    ;;
+  run defaults write com.apple.finder _FXSortFoldersFirst -bool false
+  ;;
 esac
 
 step "Enable AirDrop over ethernet? [Y/N]:" ""
@@ -176,11 +176,11 @@ case $(
   echo "$choice"
 ) in
   [yY])
-    run defaults write com.apple.NetworkBrowser BrowseAllInterfaces -bool true
-    ;;
+  run defaults write com.apple.NetworkBrowser BrowseAllInterfaces -bool true
+  ;;
   [nN])
-    run defaults write com.apple.NetworkBrowser BrowseAllInterfaces -bool false
-    ;;
+  run defaults write com.apple.NetworkBrowser BrowseAllInterfaces -bool false
+  ;;
 esac
 
 step "Show the ~/Library folder? [Y/N]:" ""
@@ -189,8 +189,8 @@ case $(
   echo "$choice"
 ) in
   [yY])
-    run chflags nohidden ~/Library
-    ;;
+  run chflags nohidden ~/Library
+  ;;
 esac
 
 step "Show the /Volumes folder? [Y/N]:" ""
@@ -199,8 +199,8 @@ case $(
   echo "$choice"
 ) in
   [yY])
-    run sudo chflags nohidden /Volumes
-    ;;
+  run sudo chflags nohidden /Volumes
+  ;;
 esac
 
 chapter "Setup Xcode"
@@ -211,9 +211,9 @@ if [[ "${check}" != "${message}" ]]; then
   choice="N"
   test="N"
   while [[ "${choice}" == "${test}" ]]; do
-    xcode-select --install
-    step "Xcode Installed? [Y/N]" ""
-    read choice
+  xcode-select --install
+  step "Xcode Installed? [Y/N]" ""
+  read choice
   done
 fi
 run sudo xcodebuild -license
@@ -232,12 +232,12 @@ fi
 if [ ! -f ~/.ssh/id_rsa ]; then
   step "Copy SSH key to clipboard? [Y/N]" ""
   case $(
-    read choice
-    echo "$choice"
+  read choice
+  echo "$choice"
   ) in
-    [yY])
-      run pbcopy <~/.ssh/id_rsa.pub
-      ;;
+  [yY])
+    run pbcopy <~/.ssh/id_rsa.pub
+    ;;
   esac
 fi
 
@@ -249,9 +249,9 @@ case $(
   echo "$choice"
 ) in
   [yY])
-    run sudo softwareupdate -ia
-    run sudo softwareupdate --schedule on
-    ;;
+  run sudo softwareupdate -ia
+  run sudo softwareupdate --schedule on
+  ;;
 esac
 
 chapter "Install Apps & Packages"
@@ -273,27 +273,27 @@ fi
 step "CLI Apps"
 for app in $(<"$directory/apps/cli"); do
   if ! brew list -1 | grep -q "^${app}\$"; then
-    run brew install ${app}
+  run brew install ${app}
   else
-    run brew upgrade ${app}
+  run brew upgrade ${app}
   fi
 done
 
 step "App Store Apps"
 for app in $(<"$directory/apps/app-store"); do
   if ! mas list | grep -q "^${app}\$"; then
-    run mas install ${app}
+  run mas install ${app}
   else
-    run mas upgrade ${app}
+  run mas upgrade ${app}
   fi
 done
 
 step "Cask Apps"
 for app in $(<"$directory/apps/cask"); do
   if ! brew list --cask -1 | grep -q "^${app}\$"; then
-    run brew install --cask ${app}
+  run brew install --cask ${app}
   else
-    run brew upgrade --cask ${app}
+  run brew upgrade --cask ${app}
   fi
 done
 
