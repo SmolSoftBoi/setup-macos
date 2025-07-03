@@ -1,0 +1,15 @@
+{
+  "name": "setup-macos-dev",
+  "build": {
+    "dockerfile": "Dockerfile"
+  },
+  "customizations": {
+    "vscode": {
+      "extensions": [
+        "timonwong.shellcheck",
+        "foxundermoon.shell-format",
+        "EditorConfig.EditorConfig"
+      ]
+    }
+  }
+}
