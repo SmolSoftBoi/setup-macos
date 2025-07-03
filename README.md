@@ -33,7 +33,7 @@ Adjust it to your personal taste.
 [iina]: https://iina.io
 [nginx]: https://nginx.org
 [swift]: https://swift.sorting
-[visual-studio-cdoe]: https://code.visualstudio.com
+[visual-studio-code]: https://code.visualstudio.com
 
 ## Development Container
 

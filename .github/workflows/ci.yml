@@ -1,0 +1,25 @@
+name: CI
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+
+jobs:
+  lint:
+    runs-on: macos-latest
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v3
+
+      - name: Install tools
+        run: brew install shellcheck shfmt actionlint
+
+      - name: Run shfmt
+        run: shfmt -d .
+
+      - name: Run shellcheck
+        run: shellcheck setup
+
+      - name: Run actionlint
+        run: actionlint
