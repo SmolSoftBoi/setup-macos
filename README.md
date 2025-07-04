@@ -4,6 +4,9 @@ Install apps and configure Mac.
 
 ## Installation
 
+Here's how to get started:
+🤘
+
 Run the command below in your terminal and the installation will start automatically.
 Just follow the prompts and you’ll be fine. 👌
 
