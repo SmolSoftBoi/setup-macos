@@ -22,20 +22,26 @@ git clone https://github.com/EpicKris/setup-macos.git ~/.setup-macos && ~/.setup
 
 2. [Visual Studio Code][visual-studio-code] as a text editor.
 
-3. A set of relevant apps…
+3. Automatic dotfile restore via Mackup.
+
+4. A set of relevant apps…
 	- [Firefox][firefox]
 	- [Google Chrome][google-chrome]
 	- [IINA][iina]
 
+
+This setup relies on [Mackup](https://github.com/lra/mackup) with iCloud to sync your dotfiles.
+
 See [`apps/app-store`](apps/app-store) and [`apps/cask`](apps/cask) for the full list of apps that will be installed.
 Adjust it to your personal taste.
 Lines starting with `#` in these files are ignored, so you can comment out apps you don't want.
+Keep the entries sorted alphabetically when you modify these lists.
 
 [firefox]: https://firefox.com
 [google-chrome]: https://chrome.google.com
 [iina]: https://iina.io
 [nginx]: https://nginx.org
-[swift]: https://swift.sorting
+[swift]: https://swift.org
 [visual-studio-code]: https://code.visualstudio.com
 
 ## Development Container
