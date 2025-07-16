@@ -12,7 +12,7 @@ This section outlines the universal conventions for the project. All code (shell
   * Use lowercase for function and variable names (except constants which may be UPPERCASE). For config files, follow their expected case conventions.
 * **Naming Conventions:** Name files and directories clearly. Script files should be **lowercase** and, if executable, may omit the `.sh` extension (the main `setup` script is an example). Configuration files should have descriptive names or standard names.
 * **Comments:** Include comments to explain non-obvious logic, especially in shell scripts and complex workflow steps. Keep comments up-to-date when code changes. Avoid commented-out blocks of code in commits (remove unused code instead).
-* **Lists and Data Files:** In list files (e.g., under `apps/` or `packages/`), put **one item per line** with no extra formatting. Maintain alphabetical order of entries for readability and to avoid duplicates (e.g., CLI tools and apps lists are sorted by name). Do not include blank lines or inline comments in these lists, as the parsing scripts do not handle them.
+* **Lists and Data Files:** In list files (e.g., under `apps/` or `packages/`), put **one item per line** with no extra formatting. Maintain alphabetical order of entries for readability and to avoid duplicates (e.g., CLI tools and apps lists are sorted by name). The setup script skips lines starting with `#` and ignores anything following `#` on a line, so you may comment out apps or add inline notes. Blank lines are ignored as well.
 
 ### Build & Test
 
