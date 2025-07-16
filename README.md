@@ -17,9 +17,8 @@ git clone https://github.com/EpicKris/setup-macos.git ~/.setup-macos && ~/.setup
 ## What Will You Get?
 
 1. A ridiculously fast web development setup…
-
-- [nginx][nginx]
-- [Swift][swift]
+	- [nginx][nginx]
+	- [Swift][swift]
 
 2. [Visual Studio Code][visual-studio-code] as a text editor.
 
