@@ -307,6 +307,18 @@ while IFS= read -r app; do
   fi
 done <"$directory/apps/cask"
 
+step "Fonts"
+while IFS= read -r app; do
+  app="${app%%#*}"
+  app="$(printf '%s' "$app" | xargs)"
+  [ -z "$app" ] && continue
+  if ! brew list --cask -1 | grep -q "^${app}\$"; then
+    run brew install --cask "${app}"
+  else
+    run brew upgrade --cask "${app}"
+  fi
+done <"$directory/apps/font"
+
 if ! brew list --cask -1 | grep -q "^adobe-creative-cloud\$"; then
   step "Adobe Creative Cloud"
   run /usr/local/Caskroom/adobe-creative-cloud/latest/Creative\\ Cloud\\ Installer.app/Contents/MacOS/Install
