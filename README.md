@@ -30,6 +30,7 @@ git clone https://github.com/EpicKris/setup-macos.git ~/.setup-macos && ~/.setup
 
 See [`apps/app-store`](apps/app-store) and [`apps/cask`](apps/cask) for the full list of apps that will be installed.
 Adjust it to your personal taste.
+Lines starting with `#` in these files are ignored, so you can comment out apps you don't want.
 
 [firefox]: https://firefox.com
 [google-chrome]: https://chrome.google.com

@@ -4,6 +4,7 @@ on:
   push:
     branches: [main]
   pull_request:
+    types: [opened, synchronize, reopened]
 
 jobs:
   lint:
@@ -16,7 +17,7 @@ jobs:
         run: brew install shellcheck shfmt actionlint
 
       - name: Run shfmt
-        run: shfmt -d .
+        run: shfmt -i 2 -ci -d .
 
       - name: Run shellcheck
         run: shellcheck setup
