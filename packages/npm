@@ -1,7 +1,8 @@
-bootlint
-csslint
-eslint
-parcel-bundler
-tidy
-webpack
-webpack-cli
+# bootlint
+corepack
+# csslint
+# eslint
+# parcel-bundler
+# tidy
+# webpack
+# webpack-cli

@@ -1,10 +1,12 @@
-balena-cli
+# balena-cli
+codex
 git
+git-lfs
 mackup
-nginx
+# nginx
 node
-php
-shadowenv
+# php
+# shadowenv
 swift
-wget
+# wget
 yarn
