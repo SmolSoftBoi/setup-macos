@@ -260,7 +260,7 @@ chapter "Install Apps & Packages"
 step "Homebrew"
 which -s brew
 if [[ $? != 0 ]]; then
-  run '/usr/bin/ruby -e "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/master/install)"'
+  run '/bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)"'
 else
   run brew update
 fi
