@@ -24,12 +24,13 @@ This section outlines the universal conventions for the project. All code (shell
   * Run the `setup` script on a macOS machine (or VM) and verify it completes without errors. Use a fresh or test user environment to see the full effect.
   * If fully automating the script run is difficult (due to interactive prompts), test critical sections individually. For example, confirm that each list of apps installs correctly by running those loop portions in isolation.
   * Ensure system changes (like defaults or settings) have taken effect as expected after script execution.
-* **Continuous Integration:** Set up a GitHub Actions workflow on **macos-latest** to automate tests if possible. For example, a CI job could run ShellCheck, format check, and perhaps execute the install script in a minimal way (with non-interactive defaults or using expect scripts to simulate input). All CI checks must pass before merging. If an agent opens a pull request, it should include evidence of passing tests.
+* **Continuous Integration:** The repo already includes `.github/workflows/ci.yml`, which runs a lint job on **macos-latest** for pushes to `main` and pull requests (`opened`, `synchronize`, `reopened`). It installs `shellcheck`, `shfmt`, and `actionlint` via Homebrew, then runs `shfmt -i 2 -ci -d .`, `shellcheck setup`, and `actionlint`. All CI checks must pass before merging. If an agent opens a pull request, it should include evidence of passing checks.
 * **Example Commands:**
 
   * *Lint Shell:* `shellcheck setup scripts/my_new_script.sh` – verify no ShellCheck errors.
-  * *Format Shell:* `shfmt -d .` – check for formatting differences (use `shfmt -w .` to fix them).
+  * *Format Shell:* `shfmt -i 2 -ci -d .` – match CI formatting checks (use `shfmt -i 2 -ci -w .` to fix them).
   * *Validate Workflow:* `actionlint` – check all `.yml` files in .github/workflows for issues.
+  * *Match CI Tool Install:* `brew install shellcheck shfmt actionlint` – install the local linting tools used by CI.
   * *Dry-Run Installs:* `brew install --dry-run <package>` – ensure a Homebrew formula or cask in the list is valid before adding.
 
 ### Environment Constraints
